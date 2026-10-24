@@ -31,3 +31,6 @@ and graphics) and its own writing (the introductions to the books and the
 "His Life" and "About" pages) are © 2026 George MacDonald Books. All rights reserved.
 Please don't copy them to make another website. Quoting a short passage with a
 link back is welcome.
+
+The portrait of MacDonald, from Photographed by William Jeffrey, 1860s, is in the public domain and is not
+covered by this reservation.
