@@ -1,17 +1,5 @@
 # The Vicar\'s Daughter
 
-## CHAPTER V. GOOD SOCIETY
-
-## CHAPTER IX. THE FOUNDLING REFOUND
-
-## CHAPTER XIII. MY FIRST DINNER PARTY.---A NEGATIVED PROPOSAL
-
-## CHAPTER XXII. MY SECOND DINNER PARTY
-
-## CHAPTER XXIII. THE END OF THE EVENING
-
-## CHAPTER XLI. \"DOUBLE, DOUBLE, TOIL AND TROUBLE\"
-
 ## CHAPTER I. INTRODUCTORY
 
 I think that is the way my father would begin. My name is Ethelwyn Percivale, and used to be Ethelwyn Walton. I always put the Walton in between when I write to my father; for I think it is quite enough to have to leave father and mother behind for a husband, without leaving their name behind you also. I am fond of lumber-rooms, and in some houses consider them far the most interesting spots; but I don\'t choose that my old name should lie about in the one at home.
@@ -2389,7 +2377,7 @@ Miss Clare nodded, and went on.
 
 A good deal followed which I would gladly record, enabled as I now am to assist my memory by a more thorough acquaintance with the views of Miss Clare. But I fear I have already given too much conversation at once.
 
-## CHAPTER XXIII
+## CHAPTER XXIII. THE END OF THE EVENING
 
 What specially delighted me during the evening, was the marked attention, and the serious look in the eyes, with which Roger listened. It was not often that he did look serious. He preferred, if possible, to get a joke out of a thing; but when he did enter into an argument, he was always fair. Although prone to take the side of objection to any religious remark, he yet never said any thing against religion itself. But his principles, and indeed his nature, seemed as yet in a state of solution,---uncrystallized, as my father would say. Mr. Morley, on the other hand, seemed an insoluble mass, incapable of receiving impressions from other minds. Any suggestion of his own mind, as to a course of action or a mode of thinking, had a good chance of being without question regarded as reasonable and right: he was more than ordinarily prejudiced in his own favor. The day after they thus met at our house, Miss Clare had a letter from him, in which he took the high hand with her, rebuking her solemnly for her presumption in saying, as he represented it, that no good could be done except after the fashion she laid down, and assuring her that she would thus alienate the most valuable assistance from any scheme she might cherish for the amelioration of the condition of the lower classes. It ended with the offer of a yearly subscription of five pounds to any project of the wisdom of which she would take the trouble to convince him. She replied, thanking him both, for his advice and his offer, but saying that, as she had no scheme on foot requiring such assistance, she could not at present accept the latter; should, however, any thing show itself for which that sort of help was desirable, she would take the liberty of reminding him of it.
 
