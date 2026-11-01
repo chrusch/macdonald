@@ -526,7 +526,9 @@ button { font: inherit; color: inherit; }
 .sermon-text cite, .sermon-meta cite { font-style: normal; font-variant-caps: all-small-caps; letter-spacing: .06em; color: var(--ink-3); }
 .sermon-text span + cite::before { content: "— "; }
 
-.sermons-more { margin: 1rem 0 0; }
+.sermons-more { margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; }
+.q-more { color: var(--ink-3); font-size: .92em; white-space: nowrap; }
+.text-row dd .q-more a { color: var(--ink-3); padding: 0 .1em; }
 
 /* the Index of Texts */
 .text-book { margin-top: 2.6rem; }
