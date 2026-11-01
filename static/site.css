@@ -499,6 +499,33 @@ button { font: inherit; color: inherit; }
 .brief figcaption a { color: var(--ink-3); text-decoration: none; }
 .brief figcaption a:hover { color: var(--accent); text-decoration: underline; }
 
+/* ---------------------------------------------------------------- Sermons */
+
+@media (max-width: 44rem) { .nav-sermons { display: none; } }
+.shelf-link { margin-left: auto; color: var(--ink-2); text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: 1.05rem; white-space: nowrap; }
+.shelf-link .i { display: inline-block; width: .9em; height: .9em; vertical-align: -.08em; }
+.shelf-link:hover { color: var(--accent); }
+.sermons-intro { font-size: 1.15rem; color: var(--ink-2); }
+.sermons-search { margin: 1.6rem 0 0; }
+.sermon-part { margin-top: 4rem; }
+.sermon-part > h2 { font-size: 2rem; font-weight: 500; text-align: center; }
+.sermon-part > .orn { display: block; margin: .4rem auto 0; }
+.sermon-section { margin-top: 2.4rem; }
+.sermon-section h3 { font-size: 1.5rem; font-weight: 500; margin: 0; border-bottom: 1px solid var(--rule); padding-bottom: .4rem; }
+.sermon-year { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--ink-3); margin-left: .6rem; font-variant-numeric: oldstyle-nums; }
+.sermon-year-line { text-align: center; margin: .6rem 0 0; }
+.sermon-year-line .sermon-year { margin: 0; }
+.sermon-section-note { margin: .6rem 0 0; color: var(--ink-3); font-style: italic; }
+.sermon-list { list-style: none; margin: .4rem 0 0; padding: 0; }
+.sermon { padding: .85rem 0; border-bottom: 1px dotted var(--rule); }
+.sermon-title { display: block; line-height: 1.25; font-family: var(--display); font-size: 1.3rem; font-weight: 500; color: var(--ink); text-decoration: none; }
+.sermon-title:hover { color: var(--accent); text-decoration: underline; }
+.sermon-meta { margin: .1rem 0 0; font-style: italic; color: var(--ink-3); font-size: 1rem; }
+.sermon-text { margin: .3rem 0 0 1.2rem; color: var(--ink-2); line-height: 1.5; text-wrap: pretty; }
+.sermon-text span { font-style: italic; }
+.sermon-text cite, .sermon-meta cite { font-style: normal; font-variant-caps: all-small-caps; letter-spacing: .06em; color: var(--ink-3); }
+.sermon-text span + cite::before { content: "— "; }
+
 /* ---------------------------------------------------------------- contact */
 
 .contact-form { display: grid; gap: 1rem; margin-top: 1.5rem; }

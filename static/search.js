@@ -26,6 +26,16 @@
     for (var i = 0; i < s.length; i++) out += foldChar(s[i]);
     return out;
   }
+  // Whether a paragraph is part of a sermon: a book's sermons are
+  // [page href, first paragraph, last paragraph], the numbers null for a whole page.
+  var bySlug = {};
+  books.forEach(function (b) { bySlug[b.slug] = b; });
+  function inSermon(slug, p) {
+    return (bySlug[slug].sermons || []).some(function (s) {
+      return s[0] === p.href && (s[1] === null || (typeof p.n === "number" && p.n >= s[1] && p.n <= s[2]));
+    });
+  }
+
   // A paragraph's anchor is its number; a heading's (a title) is its id.
   function anchor(n) { return typeof n === "number" ? "p" + n : n; }
 
@@ -111,7 +121,10 @@
     var terms = parse(q);
     if (!terms.length || terms.join("").length < 2) { out.innerHTML = ""; return; }
     var my = ++seq;
-    var targets = books.filter(function (b) { return !only || b.slug === only; });
+    // "in" is a book, a kind of book (fiction, non-fiction, poetry), or the sermons
+    var targets = books.filter(function (b) {
+      return !only || b.slug === only || b.kind === only || (only === "sermons" && b.sermons);
+    });
     out.innerHTML = '<p class="results-summary">Searching…</p>';
     var res = terms.map(termRegex);
 
@@ -120,6 +133,7 @@
       var total = 0, bookCount = 0, html = "";
       indexes.forEach(function (ix) {
         var hits = ix.paras.filter(function (p) {
+          if (only === "sermons" && !inSermon(ix.slug, p)) return false;
           return res.every(function (re) { re.lastIndex = 0; return re.test(p.folded); });
         });
         if (!hits.length) return;
