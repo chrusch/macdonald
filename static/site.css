@@ -526,6 +526,20 @@ button { font: inherit; color: inherit; }
 .sermon-text cite, .sermon-meta cite { font-style: normal; font-variant-caps: all-small-caps; letter-spacing: .06em; color: var(--ink-3); }
 .sermon-text span + cite::before { content: "— "; }
 
+.sermons-more { margin: 1rem 0 0; }
+
+/* the Index of Texts */
+.text-book { margin-top: 2.6rem; }
+.text-book h2 { font-size: 1.6rem; font-weight: 500; border-bottom: 1px solid var(--rule); padding-bottom: .3rem; }
+.text-list { margin: 0; }
+.text-row { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: .5rem 0; border-bottom: 1px dotted var(--rule); }
+.text-row dt { color: var(--ink-2); font-variant-numeric: oldstyle-nums; }
+.text-row dd { margin: 0; line-height: 1.45; }
+.text-row dd a { color: var(--ink); text-decoration: none; }
+.text-row dd a:hover { color: var(--accent); text-decoration: underline; }
+.text-src { color: var(--ink-3); font-style: italic; }
+@media (max-width: 30rem) { .text-row { grid-template-columns: 1fr; gap: .1rem; } }
+
 /* ---------------------------------------------------------------- contact */
 
 .contact-form { display: grid; gap: 1rem; margin-top: 1.5rem; }
