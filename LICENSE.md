@@ -1,6 +1,6 @@
 # Licence
 
-These are the files of the George MacDonald website, https://georgemacdonald.org/.
+These are the files of the George MacDonald Books website, https://georgemacdonald.org/.
 Different parts are licensed differently.
 
 ## The books: free for any use

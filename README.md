@@ -1,4 +1,4 @@
-# The works of George MacDonald
+# George MacDonald Books
 
 The published files of https://georgemacdonald.org/: George MacDonald's
 books, to read online, download and search.
