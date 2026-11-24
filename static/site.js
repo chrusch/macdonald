@@ -172,6 +172,48 @@
     if (qMenu.value || qFind.value) showQuotations();
   }
 
+  /* ---- Scots Words: look up a word by any of its spellings (scots/words.json) ---- */
+  var scFind = document.getElementById("sc-q");
+  if (scFind) {
+    var scData = null, scList = scFind.form.querySelector(".sc-results");
+    var scFold = function (s) { return s.toLowerCase().replace(/[’‘]/g, "'").trim(); };
+    var scLoad = function () {
+      if (scData) return;
+      scData = [];
+      fetch(scFind.dataset.words).then(function (r) { return r.json(); }).then(function (rows) {
+        scData = rows.map(function (r) {
+          return { head: r[0], mean: r[1], href: r[2], forms: (r[0].toLowerCase().split(/,\s*/).concat(r[3].split(" "))) };
+        });
+        scShow();
+      }).catch(function () { scData = null; });
+    };
+    var scShow = function () {
+      var q = scFold(scFind.value), plain = q.replace(/'/g, "");
+      scList.innerHTML = "";
+      if (!q || !scData || !scData.length) return;
+      var exact = [], starts = [], inMeaning = [];
+      scData.forEach(function (r) {
+        var fs = r.forms.map(function (f) { return f.replace(/'/g, ""); });
+        if (fs.indexOf(plain) >= 0) exact.push(r);
+        else if (plain.length > 1 && fs.some(function (f) { return f.indexOf(plain) === 0; })) starts.push(r);
+        else if (q.length > 2 && new RegExp("\\b" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(r.mean.toLowerCase())) inMeaning.push(r);
+      });
+      exact.concat(starts, inMeaning).slice(0, 30).forEach(function (r) {
+        var li = document.createElement("li");
+        li.innerHTML = '<a href="' + r.href + '">' + esc(r.head) + "</a>" + esc(r.mean);
+        scList.appendChild(li);
+      });
+      if (!scList.children.length) scList.innerHTML = "<li>No Scots word with that spelling or meaning.</li>";
+    };
+    scFind.addEventListener("focus", scLoad);
+    scFind.addEventListener("input", function () { scLoad(); scShow(); });
+    scFind.form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var first = scList.querySelector("a");
+      if (first) location.href = first.href;
+    });
+  }
+
   var reader = document.querySelector("main.reader");
   if (!reader) return;
 
@@ -221,8 +263,8 @@
   /* ---- keyboard: ← → between pages, Esc closes things ---- */
   addEventListener("keydown", function (ev) {
     if (ev.metaKey || ev.ctrlKey || ev.altKey || ev.shiftKey) return;
+    if (ev.key === "Escape") { var back = pop && pop.opener; setDrawer(false); closeNote(); if (back) back.focus(); return; }
     if (ev.target.closest && ev.target.closest("input, textarea, select, [contenteditable]")) return;
-    if (ev.key === "Escape") { setDrawer(false); closeNote(); return; }
     var rel = ev.key === "ArrowLeft" ? "prev" : ev.key === "ArrowRight" ? "next" : null;
     var link = rel && document.querySelector('.pager a[rel="' + rel + '"]');
     if (link) location.href = link.href;
@@ -254,30 +296,104 @@
     p.insertBefore(a, p.firstChild);
   });
 
-  /* ---- footnotes as pop-ups ---- */
+  /* ---- footnotes as pop-ups; and the Scots words (scots.py): a word with a
+     dotted underline shows its meaning, the Scots button the reader's choices ---- */
   var pop = null;
-  function closeNote() { if (pop) { pop.remove(); pop = null; } }
+  function closeNote() {
+    if (!pop) return;
+    if (pop.opener) pop.opener.setAttribute("aria-expanded", "false");
+    pop.remove(); pop = null;
+  }
+  function showPop(anchor, html, extra) {
+    closeNote();
+    pop = document.createElement("div");
+    pop.className = "note-pop" + (extra ? " " + extra : "");
+    pop.setAttribute("role", "note");
+    pop.innerHTML = html;
+    pop.querySelectorAll(".footnote-back").forEach(function (b) { b.remove(); });
+    pop.anchor = anchor;
+    document.body.appendChild(pop);
+    var r = anchor.getBoundingClientRect();
+    var w = pop.offsetWidth;
+    var left = Math.max(16, Math.min(r.left + scrollX - w / 2, scrollX + doc.clientWidth - w - 16));
+    pop.style.left = left + "px";
+    pop.style.top = (r.bottom + scrollY + 8) + "px";
+  }
+  function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+
+  var scBtn = document.querySelector('[data-action="scots"]');
+  var scRoot = scBtn ? scBtn.dataset.root : "";
+  function scotsOn() { return doc.dataset.scots !== "off"; }
+  function scotsWords(on) {             // focusable, and read as buttons, only while underlined
+    document.querySelectorAll(".text .sc").forEach(function (w) {
+      if (w.title) { w.dataset.m = w.title; w.removeAttribute("title"); }   // the pop-up says it instead
+      if (on) { w.setAttribute("tabindex", "0"); w.setAttribute("role", "button"); }
+      else { w.removeAttribute("tabindex"); w.removeAttribute("role"); }
+    });
+  }
+  if (scBtn) scotsWords(scotsOn());
+  function openScots(w) {
+    var entry = (w.dataset.w || "").split("#");
+    var head = entry[1] || "";
+    var printed = w.textContent.toLowerCase().replace(/[’']/g, "");
+    var html = '<p><span class="pop-label">Scots</span> '
+      + (head && head.replace(/-\d+$/, "").replace(/-/g, "") !== printed ? '<span class="sc-pop-hw">' + esc(head.replace(/-\d+$/, "")) + "</span> " : "")
+      + esc(w.dataset.m || "") + "</p>";
+    if (w.dataset.g) {
+      html += '<p class="sc-pop-gloss">MacDonald glosses it: ' + w.dataset.g.split(" ; ").map(function (g) {
+        return "“" + esc(g) + "”"; }).join("; ") + "</p>";
+    }
+    if (scRoot && entry[0]) {
+      html += '<p class="sc-pop-more"><a href="' + scRoot + encodeURIComponent(entry[0]) + ".html#" + encodeURIComponent(head) + '">Full entry</a> · <a href="' + scRoot + 'common.html">The commonest words</a></p>';
+    }
+    showPop(w, html, "sc-pop");
+  }
+  function openScotsMenu() {
+    showPop(scBtn, '<p><span class="pop-label">Scots words</span></p>'
+      + '<p><label><input type="checkbox" data-scots-toggle' + (scotsOn() ? " checked" : "") + "> Underline them in the text</label></p>"
+      + '<p class="sc-pop-more"><a href="' + scRoot + 'common.html">The commonest</a> · <a href="' + scRoot + 'index.html">Every Scots word</a></p>',
+      "sc-pop sc-menu");
+    pop.opener = scBtn;
+    scBtn.setAttribute("aria-expanded", "true");
+    pop.querySelector("input").focus({ preventScroll: true });
+  }
+  document.addEventListener("change", function (ev) {
+    if (!ev.target.matches || !ev.target.matches("[data-scots-toggle]")) return;
+    if (ev.target.checked) delete doc.dataset.scots; else doc.dataset.scots = "off";
+    store("fdm-scots", ev.target.checked ? "on" : "off");
+    scotsWords(ev.target.checked);
+  });
+
   document.addEventListener("click", function (ev) {
-    var ref = ev.target.closest && ev.target.closest("a.footnote-ref");
+    var t = ev.target.closest && ev.target;
+    if (!t) return;
+    if (scBtn && t.closest('[data-action="scots"]')) {
+      ev.preventDefault();
+      if (pop && pop.anchor === scBtn) closeNote(); else openScotsMenu();
+      return;
+    }
+    var w = scotsOn() && t.closest(".text .sc");
+    if (w) {
+      if (pop && pop.anchor === w) { closeNote(); return; }
+      openScots(w);
+      return;
+    }
+    var ref = t.closest("a.footnote-ref");
     if (!ref) {
-      if (pop && !pop.contains(ev.target)) closeNote();
+      if (pop && !pop.contains(t)) closeNote();
       return;
     }
     var note = document.getElementById(ref.getAttribute("href").slice(1));
     if (!note) return;
     ev.preventDefault();
-    closeNote();
-    pop = document.createElement("div");
-    pop.className = "note-pop";
-    pop.setAttribute("role", "note");
-    pop.innerHTML = note.innerHTML;
-    pop.querySelectorAll(".footnote-back").forEach(function (b) { b.remove(); });
-    document.body.appendChild(pop);
-    var r = ref.getBoundingClientRect();
-    var w = pop.offsetWidth;
-    var left = Math.max(16, Math.min(r.left + scrollX - w / 2, scrollX + doc.clientWidth - w - 16));
-    pop.style.left = left + "px";
-    pop.style.top = (r.bottom + scrollY + 8) + "px";
+    showPop(ref, note.innerHTML);
+  });
+  document.addEventListener("keydown", function (ev) {
+    var t = document.activeElement;
+    if ((ev.key === "Enter" || ev.key === " ") && t && t.classList && t.classList.contains("sc") && scotsOn()) {
+      ev.preventDefault();
+      openScots(t);
+    }
   });
 
   /* ---- mark the words quoted from the Bible (?quote=…, from the Index of

@@ -911,3 +911,80 @@ details.listen .listen-panel li { margin: 0 0 .6rem; }
   .text :is(h2, h3, h4, h5, h6, blockquote, .center, ol, ul, div) + .gl-refs + p { margin-top: .9em; }
 }
 @media print { .text .gl-refs { display: none; } }
+
+/* ------------------------------------------------------------ Scots words */
+
+/* In the reading pages (scots.mark): each Scots word with a dotted underline;
+   tapped, its meaning in the footnote pop-up. The reader can turn them off. */
+.text .sc {
+  text-decoration: underline dotted; text-decoration-color: var(--ink-3);
+  text-decoration-thickness: 1px; text-underline-offset: .22em; cursor: help;
+}
+.text .sc:hover, .text .sc:focus-visible { text-decoration-color: var(--accent); outline: none; }
+:root[data-scots="off"] .text .sc { text-decoration: none; cursor: auto; }
+.sc-btn {
+  width: auto !important; padding: 0 .55rem; text-decoration: none;
+  font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: 1.05rem; line-height: 1;
+}
+.sc-btn[aria-expanded="true"] { background: var(--paper-2); color: var(--ink); }
+@media (max-width: 36rem) { .sc-btn { padding: 0 .35rem; letter-spacing: .03em; } }
+.pop-label { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-3); margin-right: .2em; }
+.sc-pop .sc-pop-hw { font-family: var(--display); font-weight: 600; font-size: 1.15em; color: var(--ink); margin-right: .25em; }
+.sc-pop .sc-pop-gloss { font-size: .95em; }
+.sc-pop .sc-pop-more { font-variant-caps: all-small-caps; letter-spacing: .08em; }
+.sc-pop .sc-pop-more a { text-decoration: none; }
+.sc-menu label { display: flex; gap: .5rem; align-items: center; cursor: pointer; }
+.sc-menu input { width: 1.05rem; height: 1.05rem; accent-color: var(--accent); margin: 0; }
+@media print { .text .sc { text-decoration: none; } }
+
+/* The glossary of them (scots/) */
+.sc-intro { font-size: 1.1rem; color: var(--ink-2); }
+.sc-intro table, .sc-key table { width: 100%; border-collapse: collapse; font-size: 1rem; margin: 1.2rem 0; }
+.sc-intro td, .sc-key td, .sc-key th { padding: .3rem .5rem; border-top: 1px dotted var(--rule); vertical-align: top; text-align: left; }
+.sc-key th { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-3); font-weight: 400; }
+.sc-key td:first-child { font-family: var(--display); font-weight: 600; white-space: nowrap; }
+.sc-intro td:nth-child(even) { color: var(--ink-3); }
+.scots-page h2 { font-size: 1.6rem; font-weight: 500; text-align: center; margin: 2.5rem 0 1rem; }
+.sc-find { margin: 2rem 0 1rem; }
+.sc-find label { display: block; text-align: center; font-variant-caps: all-small-caps; letter-spacing: .1em; color: var(--ink-3); font-size: 1.1rem; margin-bottom: .4rem; }
+.sc-find input {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: 1.15rem; padding: .55rem .9rem;
+  border: 1px solid var(--rule); border-radius: 999px; background: var(--paper); color: var(--ink);
+}
+.sc-find input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.sc-results { list-style: none; margin: .6rem 0 0; padding: 0; }
+.sc-results li { padding: .45rem .2rem; border-top: 1px dotted var(--rule); line-height: 1.45; }
+.sc-results a { font-family: var(--display); font-weight: 600; font-size: 1.15rem; text-decoration: none; margin-right: .4rem; }
+.sc-results .sc-also { display: inline; margin: 0 .4rem 0 0; }
+.sc-quick { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin: 1.5rem 0; }
+.sc-az { display: flex; flex-wrap: wrap; justify-content: center; gap: .15rem .35rem; margin: 0 0 1.2rem; font-family: var(--display); font-size: 1.35rem; font-weight: 600; }
+.sc-az a { text-decoration: none; padding: 0 .3rem; border-radius: 4px; }
+.sc-az a[aria-current] { background: var(--ink); color: var(--paper); }
+.sc-pages { columns: 3 9rem; list-style: none; padding: 0; margin: 0; font-size: 1.05rem; }
+.sc-pages li { break-inside: avoid; padding: .1rem 0; }
+.sc-n { color: var(--ink-3); font-size: .9em; }
+.sc-entry { padding: 1rem 0 .8rem; border-top: 1px dotted var(--rule); scroll-margin-top: 1rem; }
+.sc-entry:target { background: color-mix(in srgb, var(--mark) 35%, transparent); border-radius: 6px; padding-left: .6rem; padding-right: .6rem; }
+.sc-entry .sc-hw { font-size: 1.45rem; font-weight: 600; text-align: left; margin: 0; line-height: 1.25; }
+.sc-entry .sc-hw a { color: var(--ink); text-decoration: none; }
+.sc-entry p { margin: .25rem 0 0; line-height: 1.55; }
+.sc-mean { font-size: 1.15rem; color: var(--ink); }
+.sc-freq { font-size: .95rem; color: var(--ink-3); }
+.sc-common { font-style: italic; }
+.sc-gloss { font-size: 1rem; color: var(--ink-2); }
+.sc-ex { margin: .5rem 0 0 1rem; padding-left: .8rem; border-left: 2px solid var(--rule); font-size: 1.02rem; color: var(--ink-2); }
+.sc-ex a { font-style: italic; color: var(--ink-3); white-space: nowrap; }
+.sc-ex a::before { content: "— "; }
+.sc-also { display: block; font-size: .92rem; color: var(--ink-3); font-style: italic; font-weight: 400; font-family: var(--serif); }
+.sc-common-table { width: 100%; border-collapse: collapse; margin: 1rem 0 0; font-size: 1.1rem; }
+.sc-common-table th, .sc-common-table td { padding: .4rem .5rem; border-top: 1px dotted var(--rule); text-align: left; vertical-align: top; }
+.sc-common-table thead th { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-3); font-weight: 400; border-top: 0; }
+.sc-common-table tbody th { font-family: var(--display); font-weight: 600; font-size: 1.2rem; width: 40%; }
+.sc-common-table tbody th a { color: var(--ink); text-decoration: none; }
+.sc-highland .gl-item dt { font-size: 1.2rem; }
+@media print {
+  .scots-common .sc-common-table { font-size: 10pt; }
+  .sc-find, .sc-quick, .sc-az { display: none; }
+}
+.sc-note { border: 1px solid var(--rule); border-radius: 8px; background: var(--paper-2); padding: .8rem 1.1rem; margin: 0 0 1.5rem; font-size: 1.02rem; }
+.sc-note p { margin: 0; }
