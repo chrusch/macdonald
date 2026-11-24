@@ -988,3 +988,4 @@ details.listen .listen-panel li { margin: 0 0 .6rem; }
 }
 .sc-note { border: 1px solid var(--rule); border-radius: 8px; background: var(--paper-2); padding: .8rem 1.1rem; margin: 0 0 1.5rem; font-size: 1.02rem; }
 .sc-note p { margin: 0; }
+.sc-sounds td:nth-child(2) { color: var(--ink-2); }
