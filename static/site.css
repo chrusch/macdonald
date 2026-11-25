@@ -133,25 +133,36 @@ button { font: inherit; color: inherit; }
 /* The header has room for every item only on a wide screen. As it narrows,
    the items the footer also links go one by one, in this order (each width
    measured where the next item would push the theme button off the edge):
-   Glossary, the word "Search", Sermons, About, Library. */
-@media (max-width: 54rem) { .nav-icon-label { display: none; } }
-@media (max-width: 43rem) {
+   Glossary, the word "Search", Sermons, About, Library. His Life and
+   Articles stay on a phone; below 24rem (a 360px phone) only His Life
+   is left, since the wordmark is long. */
+@media (max-width: 68.5rem) { .nav-glossary { display: none; } }
+@media (max-width: 61rem) { .nav-icon-label { display: none; } }
+@media (max-width: 56.5rem) { .nav-sermons { display: none; } }
+@media (max-width: 49.5rem) {
   .site-header .bar { gap: .4rem; }
   .site-nav { gap: 0; }
   .site-nav a, .nav-icon { padding: .4rem .4rem; font-size: 1.1rem; }
   .wordmark { font-size: 1.35rem; }
 }
-@media (max-width: 33rem) {
+@media (max-width: 40.5rem) {
   .site-nav a[href$="about.html"] { display: none; }
 }
-@media (max-width: 29rem) {
+@media (max-width: 34rem) {
   /* the wordmark already leads to the library */
   .site-nav a[href$="#library"] { display: none; }
 }
-@media (max-width: 24rem) {
-  .wordmark { font-size: 1.15rem; }
+@media (max-width: 29rem) {
   .site-header .wrap { padding: 0 .9rem; }
+  .site-header .bar { gap: .3rem; }
+  .site-nav a, .nav-icon { padding: .4rem .3rem; font-size: 1rem; }
+  .wordmark { font-size: 1.15rem; }
 }
+@media (max-width: 25rem) {
+  .wordmark { font-size: 1.05rem; }
+  .site-nav a { letter-spacing: .07em; }
+}
+@media (max-width: 24rem) { .nav-articles { display: none; } }
 
 .site-footer { border-top: 1px solid var(--rule); margin-top: 5rem; padding: 2.5rem 0 3rem; text-align: center; color: var(--ink-3); font-size: 1rem; }
 .site-footer p { margin: .35rem 0; }
@@ -541,7 +552,6 @@ button { font: inherit; color: inherit; }
 
 /* ---------------------------------------------------------------- Sermons */
 
-@media (max-width: 49rem) { .nav-sermons { display: none; } }
 .shelf-link { margin-left: auto; color: var(--ink-2); text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: 1.05rem; white-space: nowrap; }
 .shelf-link .i { display: inline-block; width: .9em; height: .9em; vertical-align: -.08em; }
 .shelf-link:hover { color: var(--accent); }
@@ -866,7 +876,6 @@ details.listen .listen-panel li { margin: 0 0 .6rem; }
 }
 /* ---------------------------------------------------------------- Glossary */
 
-@media (max-width: 60rem) { .nav-glossary { display: none; } }
 .gl-intro { font-size: 1.1rem; color: var(--ink-2); }
 .gl-index, .gl-entries { margin-top: 2.5rem; }
 .gl-index h2, .gl-entries h2 { font-size: 1.6rem; font-weight: 500; text-align: center; margin: 0 0 1rem; }
